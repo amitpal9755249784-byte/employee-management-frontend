@@ -39,7 +39,7 @@ function AddEmployee() {
 
     try {
       await axios.post(
-        "http://127.0.0.1:8000/api/employees",
+        "https://employee-management-backend-production-dc04.up.railway.app/api/employees",
         employee
       );
 

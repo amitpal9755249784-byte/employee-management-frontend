@@ -10,7 +10,7 @@ function Dashboard() {
 
 const fetchEmployees = async () => {
   const response = await axios.get(
-    "http://127.0.0.1:8000/api/employees"
+    "https://employee-management-backend-production-dc04.up.railway.app/api/employees"
   );
 
   setCount(response.data.length);

@@ -20,7 +20,7 @@ function EditEmployee() {
 
   const fetchEmployee = async () => {
     const response = await axios.get(
-      `http://127.0.0.1:8000/api/employees/${id}`
+      `https://employee-management-backend-production-dc04.up.railway.app/api/employees/${id}`
     );
 
     setEmployee(response.data);
@@ -37,7 +37,7 @@ function EditEmployee() {
     e.preventDefault();
 
     await axios.put(
-      `http://127.0.0.1:8000/api/employees/${id}`,
+      `https://employee-management-backend-production-dc04.up.railway.app/api/employees/${id}`,
       employee
     );
 

@@ -16,7 +16,7 @@ function EmployeeList() {
     setLoading(true);
 
     const response = await axios.get(
-      "http://127.0.0.1:8000/api/employees"
+      "https://employee-management-backend-production-dc04.up.railway.app/api/employees"
     );
 
     await new Promise(resolve => setTimeout(resolve, 2000));
@@ -41,7 +41,8 @@ function EmployeeList() {
     }
 
     await axios.delete(
-      `http://127.0.0.1:8000/api/employees/${id}`
+      
+      `https://employee-management-backend-production-dc04.up.railway.app/api/employees/${id}`
     );
 
     Swal.fire({
