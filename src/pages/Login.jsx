@@ -13,7 +13,7 @@ function Login() {
 
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/api/login",
+        "https://employee-management-backend-production-dc04.up.railway.app/api/login",
         {
           email,
           password,
@@ -29,8 +29,9 @@ function Login() {
 
       navigate("/dashboard");
     } catch (error) {
-      alert("Invalid Credentials");
-    }
+  console.log(error.response?.data);
+  alert(JSON.stringify(error.response?.data || error.message));
+}
   };
 
   return (
