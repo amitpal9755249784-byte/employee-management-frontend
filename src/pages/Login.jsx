@@ -29,8 +29,14 @@ function Login() {
 
       navigate("/dashboard");
     } catch (error) {
-      alert("Invalid Credentials");
-    }
+  console.log(error.response?.data);
+
+  alert(
+    JSON.stringify(
+      error.response?.data || error.message
+    )
+  );
+}
   };
 
   return (
