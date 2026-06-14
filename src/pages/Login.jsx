@@ -28,9 +28,9 @@ function Login() {
       alert("Login Successful");
 
       navigate("/dashboard");
-    }catch (error) {
-  alert(JSON.stringify(error.response?.data));
-}
+    } catch (error) {
+      alert("Invalid Credentials");
+    }
   };
 
   return (
