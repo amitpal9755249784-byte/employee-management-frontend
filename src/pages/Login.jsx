@@ -28,14 +28,8 @@ function Login() {
       alert("Login Successful");
 
       navigate("/dashboard");
-    } catch (error) {
-  console.log(error.response?.data);
-
-  alert(
-    JSON.stringify(
-      error.response?.data || error.message
-    )
-  );
+    }catch (error) {
+  alert(JSON.stringify(error.response?.data));
 }
   };
 
