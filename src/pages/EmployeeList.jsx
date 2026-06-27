@@ -6,24 +6,23 @@ import { Link } from "react-router-dom";
 function EmployeeList() {
   const [employees, setEmployees] = useState([]);
   const [search, setSearch] = useState("");
-  const [loading, setLoading] = useState(true);
+  
 
   useEffect(() => {
     fetchEmployees();
   }, []);
 
   const fetchEmployees = async () => {
-    setLoading(true);
+    
 
     const response = await axios.get(
       "https://employee-management-backend-production-dc04.up.railway.app/api/employees"
     );
 
-    await new Promise(resolve => setTimeout(resolve, 2000));
+   
 
     setEmployees(response.data);
 
-    setLoading(false);
   };
 
   const deleteEmployee = async (id) => {
@@ -54,25 +53,7 @@ function EmployeeList() {
     fetchEmployees();
   };
 
-  if (loading) {
-    return (
-      <div className="container mt-4 text-center">
-        <div
-          className="spinner-border text-primary"
-          role="status"
-        >
-          <span className="visually-hidden">
-            Loading...
-          </span>
-        </div>
-
-        <p className="mt-2">
-          Loading Employees...
-        </p>
-      </div>
-    );
-  }
-
+ 
   return (
     <div className="container mt-4">
       <h2 className="mb-3">Employee List</h2>
