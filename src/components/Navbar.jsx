@@ -2,6 +2,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 
 function Navbar() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const user = JSON.parse(localStorage.getItem("user"));
 
@@ -10,57 +11,81 @@ function Navbar() {
     navigate("/login");
   };
 
-const location = useLocation();
-
-if (location.pathname === "/login") {
-  return null;
-}
+  if (location.pathname === "/login") {
+    return null;
+  }
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav
+      className="navbar navbar-expand-lg navbar-dark shadow"
+      style={{ background: "#0d6efd" }}
+    >
       <div className="container">
 
-        <Link className="navbar-brand" to="/">
-          Employee Management
+        <Link className="navbar-brand fw-bold fs-4" to="/dashboard">
+          👨‍💼 Employee Management
         </Link>
 
-        <div className="d-flex align-items-center">
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
 
-          <Link
-            to="/dashboard"
-            className="btn btn-primary me-2"
-          >
-            Dashboard
-          </Link>
+        <div
+          className="collapse navbar-collapse"
+          id="navbarNav"
+        >
+          <ul className="navbar-nav ms-auto align-items-center">
 
-          <Link
-            to="/"
-            className="btn btn-success me-2"
-          >
-            Employees
-          </Link>
+            <li className="nav-item me-2">
+              <Link
+                to="/dashboard"
+                className="btn btn-outline-light"
+              >
+                📊 Dashboard
+              </Link>
+            </li>
 
-          <Link
-            to="/add"
-            className="btn btn-warning me-3"
-          >
-            Add Employee
-          </Link>
+            <li className="nav-item me-2">
+              <Link
+                to="/"
+                className="btn btn-outline-light"
+              >
+                👨 Employees
+              </Link>
+            </li>
 
-          {user && (
-            <span className="text-white me-3">
-              Welcome, {user.name}
-            </span>
-          )}
+            <li className="nav-item me-3">
+              <Link
+                to="/add"
+                className="btn btn-warning fw-bold"
+              >
+                ➕ Add Employee
+              </Link>
+            </li>
 
-          <button
-            onClick={handleLogout}
-            className="btn btn-danger"
-          >
-            Logout
-          </button>
+            {user && (
+              <li className="nav-item me-3 text-white fw-bold">
+                👋 {user.name}
+              </li>
+            )}
 
+            <li className="nav-item">
+              <button
+                onClick={handleLogout}
+                className="btn btn-danger"
+              >
+                🚪 Logout
+              </button>
+            </li>
+
+          </ul>
         </div>
+
       </div>
     </nav>
   );
