@@ -50,49 +50,94 @@ function EditEmployee() {
     navigate("/");
   };
 
-  return (
-    <div>
-      <h2>Edit Employee</h2>
+ return (
+  <div className="container mt-5">
+    <div className="row justify-content-center">
+      <div className="col-md-6">
+        <div className="card shadow">
+          <div className="card-header bg-warning text-dark">
+            <h3 className="mb-0 text-center">
+              Edit Employee
+            </h3>
+          </div>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="name"
-          value={employee.name}
-          onChange={handleChange}
-        />
-        <br /><br />
+          <div className="card-body">
+            <form onSubmit={handleSubmit}>
+              <div className="mb-3">
+                <label className="form-label">
+                  Name
+                </label>
 
-        <input
-          type="email"
-          name="email"
-          value={employee.email}
-          onChange={handleChange}
-        />
-        <br /><br />
+                <input
+                  type="text"
+                  name="name"
+                  className="form-control"
+                  value={employee.name}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
 
-        <input
-          type="text"
-          name="phone"
-          value={employee.phone}
-          onChange={handleChange}
-        />
-        <br /><br />
+              <div className="mb-3">
+                <label className="form-label">
+                  Email
+                </label>
 
-        <input
-          type="text"
-          name="department"
-          value={employee.department}
-          onChange={handleChange}
-        />
-        <br /><br />
+                <input
+                  type="email"
+                  name="email"
+                  className="form-control"
+                  value={employee.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
 
-        <button type="submit">
-          Update Employee
-        </button>
-      </form>
+              <div className="mb-3">
+                <label className="form-label">
+                  Phone
+                </label>
+
+                <input
+                  type="text"
+                  name="phone"
+                  className="form-control"
+                  value={employee.phone}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="mb-3">
+                <label className="form-label">
+                  Department
+                </label>
+
+                <input
+                  type="text"
+                  name="department"
+                  className="form-control"
+                  value={employee.department}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="d-grid">
+                <button
+                  type="submit"
+                  className="btn btn-warning"
+                >
+                  Update Employee
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
-  );
+  </div>
+);
 }
 
 export default EditEmployee;
