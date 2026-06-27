@@ -6,124 +6,161 @@ import { Link } from "react-router-dom";
 function EmployeeList() {
   const [employees, setEmployees] = useState([]);
   const [search, setSearch] = useState("");
-  
 
   useEffect(() => {
     fetchEmployees();
   }, []);
 
   const fetchEmployees = async () => {
-    
-
     const response = await axios.get(
       "https://employee-management-backend-production-dc04.up.railway.app/api/employees"
     );
 
-   
-
     setEmployees(response.data);
-
   };
 
   const deleteEmployee = async (id) => {
     const result = await Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to recover this employee!",
+      title: "Delete Employee?",
+      text: "This action cannot be undone!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonText: "Yes, Delete",
-      cancelButtonText: "Cancel",
+      confirmButtonColor: "#dc3545",
+      cancelButtonColor: "#6c757d",
+      confirmButtonText: "Delete",
     });
 
-    if (!result.isConfirmed) {
-      return;
-    }
+    if (!result.isConfirmed) return;
 
     await axios.delete(
-      
       `https://employee-management-backend-production-dc04.up.railway.app/api/employees/${id}`
     );
 
     Swal.fire({
-      title: "Deleted!",
-      text: "Employee Deleted Successfully",
       icon: "success",
+      title: "Deleted!",
+      text: "Employee deleted successfully.",
+      timer: 1500,
+      showConfirmButton: false,
     });
 
     fetchEmployees();
   };
 
- 
+  const filteredEmployees = employees.filter((employee) =>
+    employee.name.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
     <div className="container mt-4">
-      <h2 className="mb-3">Employee List</h2>
 
-      <Link
-        to="/add"
-        className="btn btn-primary mb-3"
-      >
-        Add Employee
-      </Link>
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <div>
+          <h2 className="fw-bold">👨 Employee List</h2>
+          <p className="text-muted mb-0">
+            Total Employees : <strong>{employees.length}</strong>
+          </p>
+        </div>
 
-      <input
-        type="text"
-        placeholder="Search Employee"
-        className="form-control mb-3"
-        value={search}
-        onChange={(e) =>
-          setSearch(e.target.value)
-        }
-      />
+        <Link to="/add" className="btn btn-primary">
+          ➕ Add Employee
+        </Link>
+      </div>
 
-      <table className="table table-bordered table-striped">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Department</th>
-            <th>Action</th>
-          </tr>
-        </thead>
+      <div className="card shadow border-0">
 
-        <tbody>
-          {employees
-            .filter((employee) =>
-              employee.name
-                .toLowerCase()
-                .includes(search.toLowerCase())
-            )
-            .map((employee) => (
-              <tr key={employee.id}>
-                <td>{employee.id}</td>
-                <td>{employee.name}</td>
-                <td>{employee.email}</td>
-                <td>{employee.phone}</td>
-                <td>{employee.department}</td>
+        <div className="card-body">
 
-                <td>
-                  <Link
-                    to={`/edit/${employee.id}`}
-                  >
-                    <button className="btn btn-warning btn-sm me-2">
-                      Edit
-                    </button>
-                  </Link>
+          <input
+            type="text"
+            className="form-control mb-4"
+            placeholder="🔍 Search Employee..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
 
-                  <button
-                    className="btn btn-danger btn-sm"
-                    onClick={() =>
-                      deleteEmployee(employee.id)
-                    }
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-        </tbody>
-      </table>
+          <div className="table-responsive">
+
+            <table className="table table-hover align-middle">
+
+              <thead className="table-dark">
+
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Department</th>
+                  <th width="170">Action</th>
+                </tr>
+
+              </thead>
+
+              <tbody>
+
+                {filteredEmployees.length > 0 ? (
+                  filteredEmployees.map((employee, index) => (
+                    <tr key={employee.id}>
+
+                      <td>{index + 1}</td>
+
+                      <td className="fw-semibold">
+                        {employee.name}
+                      </td>
+
+                      <td>{employee.email}</td>
+
+                      <td>{employee.phone}</td>
+
+                      <td>
+                        <span className="badge bg-success">
+                          {employee.department}
+                        </span>
+                      </td>
+
+                      <td>
+
+                        <Link
+                          to={`/edit/${employee.id}`}
+                          className="btn btn-warning btn-sm me-2"
+                        >
+                          ✏ Edit
+                        </Link>
+
+                        <button
+                          className="btn btn-danger btn-sm"
+                          onClick={() =>
+                            deleteEmployee(employee.id)
+                          }
+                        >
+                          🗑 Delete
+                        </button>
+
+                      </td>
+
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td
+                      colSpan="6"
+                      className="text-center text-muted py-4"
+                    >
+                      No Employees Found
+                    </td>
+                  </tr>
+                )}
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+
+      </div>
+
     </div>
   );
 }
