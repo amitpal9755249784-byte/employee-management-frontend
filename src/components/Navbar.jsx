@@ -1,15 +1,27 @@
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 function Navbar() {
-  const navigate = useNavigate();
   const location = useLocation();
 
   const user = JSON.parse(localStorage.getItem("user"));
 
-  const handleLogout = () => {
-    localStorage.removeItem("user");
-    navigate("/login");
-  };
+  const [dateTime, setDateTime] = useState("");
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const now = new Date();
+
+      setDateTime(
+        now.toLocaleString("en-IN", {
+          dateStyle: "medium",
+          timeStyle: "short",
+        })
+      );
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   if (location.pathname === "/login") {
     return null;
@@ -17,73 +29,43 @@ function Navbar() {
 
   return (
     <nav
-      className="navbar navbar-expand-lg navbar-dark shadow"
-      style={{ background: "#0d6efd" }}
+      className="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-4"
+      style={{
+        height: "70px",
+      }}
     >
-      <div className="container">
+      <div className="container-fluid">
 
-        <Link className="navbar-brand fw-bold fs-4" to="/dashboard">
-          👨‍💼 Employee Management
-        </Link>
+        <h3 className="fw-bold text-primary mb-0">
+          👨‍💼 Employee Management System
+        </h3>
 
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
+        <div className="d-flex align-items-center">
 
-        <div
-          className="collapse navbar-collapse"
-          id="navbarNav"
-        >
-          <ul className="navbar-nav ms-auto align-items-center">
+          <div className="text-end me-4">
 
-            <li className="nav-item me-2">
-              <Link
-                to="/dashboard"
-                className="btn btn-outline-light"
-              >
-                📊 Dashboard
-              </Link>
-            </li>
+            <div className="fw-bold">
+              👋 Welcome, {user?.name}
+            </div>
 
-            <li className="nav-item me-2">
-              <Link
-                to="/"
-                className="btn btn-outline-light"
-              >
-                👨 Employees
-              </Link>
-            </li>
+            <small className="text-muted">
+              {dateTime}
+            </small>
 
-            <li className="nav-item me-3">
-              <Link
-                to="/add"
-                className="btn btn-warning fw-bold"
-              >
-                ➕ Add Employee
-              </Link>
-            </li>
+          </div>
 
-            {user && (
-              <li className="nav-item me-3 text-white fw-bold">
-                👋 {user.name}
-              </li>
-            )}
+          <div
+            className="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center"
+            style={{
+              width: "45px",
+              height: "45px",
+              fontSize: "20px",
+              fontWeight: "bold",
+            }}
+          >
+            {user?.name?.charAt(0).toUpperCase()}
+          </div>
 
-            <li className="nav-item">
-              <button
-                onClick={handleLogout}
-                className="btn btn-danger"
-              >
-                🚪 Logout
-              </button>
-            </li>
-
-          </ul>
         </div>
 
       </div>
