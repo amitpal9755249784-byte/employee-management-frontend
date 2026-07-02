@@ -3,26 +3,26 @@ import Navbar from "./components/Navbar";
 import { Outlet } from "react-router-dom";
 
 function Layout() {
-
   return (
-    <div>
+    <div className="d-flex">
 
+      {/* Sidebar */}
       <Sidebar />
 
+      {/* Main Content */}
       <div
-  style={{
-    marginLeft: "250px",
-    minHeight: "100vh",
-    background: "#f4f6f9",
-  }}
->
-
+        className="flex-grow-1"
+        style={{
+          marginLeft: "250px",
+          minHeight: "100vh",
+          backgroundColor: "#f8f9fa",
+        }}
+      >
         <Navbar />
 
-        <div className="p-4">
+        <main className="container-fluid p-4">
           <Outlet />
-        </div>
-
+        </main>
       </div>
 
     </div>
