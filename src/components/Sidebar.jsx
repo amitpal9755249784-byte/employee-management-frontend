@@ -22,35 +22,37 @@ function Sidebar() {
 
   return (
     <div
-      className="text-white shadow"
+      className="text-white shadow d-flex flex-column"
       style={{
-  width: "250px",
-  minHeight: "100vh",
-  position: "fixed",
-  left: 0,
-  top: 0,
-  backgroundColor: "#1e1e2d",
-}}
+        width: "250px",
+        height: "100vh",
+        position: "fixed",
+        left: 0,
+        top: 0,
+        backgroundColor: "#212529",
+      }}
     >
-      <div className="text-center py-4 border-bottom">
-        <h3 className="fw-bold">
+      {/* Logo */}
+      <div className="text-center py-4 border-bottom border-secondary">
+        <h3 className="fw-bold mb-1">
           <FaUsers className="me-2" />
           EMS
         </h3>
 
-        <small>
+        <small className="text-light">
           Employee Management
         </small>
       </div>
 
-      <div className="p-3">
+      {/* Menu */}
+      <div className="p-3 flex-grow-1">
 
         <Link
           to="/dashboard"
-          className={`nav-link text-white rounded p-3 mb-2 ${
+          className={`nav-link rounded p-3 mb-2 ${
             location.pathname === "/dashboard"
-              ? "bg-light text-dark"
-              : ""
+              ? "bg-primary text-white"
+              : "text-white"
           }`}
         >
           <FaTachometerAlt className="me-2" />
@@ -59,10 +61,10 @@ function Sidebar() {
 
         <Link
           to="/"
-          className={`nav-link text-white rounded p-3 mb-2 ${
+          className={`nav-link rounded p-3 mb-2 ${
             location.pathname === "/"
-              ? "bg-light text-dark"
-              : ""
+              ? "bg-primary text-white"
+              : "text-white"
           }`}
         >
           <FaUsers className="me-2" />
@@ -71,10 +73,10 @@ function Sidebar() {
 
         <Link
           to="/add"
-          className={`nav-link text-white rounded p-3 mb-2 ${
+          className={`nav-link rounded p-3 mb-2 ${
             location.pathname === "/add"
-              ? "bg-light text-dark"
-              : ""
+              ? "bg-primary text-white"
+              : "text-white"
           }`}
         >
           <FaUserPlus className="me-2" />
@@ -83,9 +85,8 @@ function Sidebar() {
 
       </div>
 
-      <div
-        className="position-absolute bottom-0 start-0 w-100 p-3 border-top"
-      >
+      {/* User & Logout */}
+      <div className="p-3 border-top border-secondary">
 
         <div className="mb-3">
 
@@ -93,7 +94,9 @@ function Sidebar() {
 
           <br />
 
-          <small>{user?.email}</small>
+          <small className="text-light">
+            {user?.email}
+          </small>
 
         </div>
 
