@@ -8,6 +8,7 @@ import AddEmployee from "./pages/AddEmployee";
 import EditEmployee from "./pages/EditEmployee";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Routes>
 
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
 
         <Route
           element={
