@@ -4,10 +4,9 @@ import {
   FaUserPlus,
   FaSignOutAlt,
 } from "react-icons/fa";
-
 import { Link, useNavigate, useLocation } from "react-router-dom";
 
-function Sidebar() {
+function Sidebar({ sidebarOpen }) {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -30,6 +29,8 @@ function Sidebar() {
     textDecoration: "none",
     display: "flex",
     alignItems: "center",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
     transition: "0.3s",
     fontWeight: "500",
   });
@@ -38,12 +39,14 @@ function Sidebar() {
     <div
       className="d-flex flex-column shadow"
       style={{
-        width: "250px",
+        width: sidebarOpen ? "250px" : "80px",
         height: "100vh",
         position: "fixed",
         left: 0,
         top: 0,
         backgroundColor: "#212529",
+        transition: "0.3s",
+        zIndex: 1050,
       }}
     >
       {/* Logo */}
@@ -54,13 +57,17 @@ function Sidebar() {
         }}
       >
         <h3 className="fw-bold mb-1">
-          <FaUsers className="me-2" />
-          EMS
+          <FaUsers />
+          {sidebarOpen && (
+            <span className="ms-2">EMS</span>
+          )}
         </h3>
 
-        <small className="text-secondary">
-          Employee Management
-        </small>
+        {sidebarOpen && (
+          <small className="text-secondary">
+            Employee Management
+          </small>
+        )}
       </div>
 
       {/* Menu */}
@@ -70,24 +77,36 @@ function Sidebar() {
           to="/dashboard"
           style={menuStyle("/dashboard")}
         >
-          <FaTachometerAlt className="me-3" />
-          Dashboard
+          <FaTachometerAlt size={20} />
+          {sidebarOpen && (
+            <span className="ms-3">
+              Dashboard
+            </span>
+          )}
         </Link>
 
         <Link
           to="/"
           style={menuStyle("/")}
         >
-          <FaUsers className="me-3" />
-          Employees
+          <FaUsers size={20} />
+          {sidebarOpen && (
+            <span className="ms-3">
+              Employees
+            </span>
+          )}
         </Link>
 
         <Link
           to="/add"
           style={menuStyle("/add")}
         >
-          <FaUserPlus className="me-3" />
-          Add Employee
+          <FaUserPlus size={20} />
+          {sidebarOpen && (
+            <span className="ms-3">
+              Add Employee
+            </span>
+          )}
         </Link>
 
       </div>
@@ -99,26 +118,33 @@ function Sidebar() {
           borderTop: "1px solid #495057",
         }}
       >
-        <div
-          className="mb-3 p-2 rounded"
-          style={{
-            backgroundColor: "#343a40",
-          }}
-        >
-          <strong>{user?.name}</strong>
-          <br />
-          <small className="text-secondary">
-            {user?.email}
-          </small>
-        </div>
+        {sidebarOpen && (
+          <div
+            className="mb-3 p-2 rounded"
+            style={{
+              backgroundColor: "#343a40",
+            }}
+          >
+            <strong>{user?.name}</strong>
+            <br />
+            <small className="text-secondary">
+              {user?.email}
+            </small>
+          </div>
+        )}
 
         <button
           className="btn btn-danger w-100"
           onClick={logout}
         >
-          <FaSignOutAlt className="me-2" />
-          Logout
+          <FaSignOutAlt />
+          {sidebarOpen && (
+            <span className="ms-2">
+              Logout
+            </span>
+          )}
         </button>
+
       </div>
     </div>
   );

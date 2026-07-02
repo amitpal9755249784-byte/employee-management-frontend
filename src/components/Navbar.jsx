@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { FaBars } from "react-icons/fa";
 
-function Navbar() {
+function Navbar({ sidebarOpen, setSidebarOpen }) {
   const location = useLocation();
 
   const user = JSON.parse(localStorage.getItem("user"));
@@ -23,26 +24,40 @@ function Navbar() {
     return () => clearInterval(timer);
   }, []);
 
-  if (location.pathname === "/login") {
-    return null;
-  }
+  if (location.pathname === "/login") return null;
 
   return (
     <nav
-      className="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-4"
+      className="navbar navbar-light bg-white shadow-sm px-4"
       style={{
         height: "70px",
+        position: "sticky",
+        top: 0,
+        zIndex: 1000,
       }}
     >
       <div className="container-fluid">
 
-        <h3 className="fw-bold text-primary mb-0">
-          👨‍💼 Employee Management System
-        </h3>
+        <div className="d-flex align-items-center">
+
+          <button
+            className="btn btn-outline-primary me-3"
+            onClick={() =>
+              setSidebarOpen(!sidebarOpen)
+            }
+          >
+            <FaBars />
+          </button>
+
+          <h4 className="fw-bold text-primary mb-0">
+            Employee Management System
+          </h4>
+
+        </div>
 
         <div className="d-flex align-items-center">
 
-          <div className="text-end me-4">
+          <div className="text-end me-3">
 
             <div className="fw-bold">
               👋 Welcome, {user?.name}
@@ -59,7 +74,6 @@ function Navbar() {
             style={{
               width: "45px",
               height: "45px",
-              fontSize: "20px",
               fontWeight: "bold",
             }}
           >
