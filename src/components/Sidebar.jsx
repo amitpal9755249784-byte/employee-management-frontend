@@ -24,13 +24,13 @@ function Sidebar() {
     <div
       className="text-white shadow"
       style={{
-        width: "250px",
-        minHeight: "100vh",
-        position: "fixed",
-        left: 0,
-        top: 0,
-        background: "linear-gradient(180deg,#0d6efd,#0a58ca)",
-      }}
+  width: "250px",
+  minHeight: "100vh",
+  position: "fixed",
+  left: 0,
+  top: 0,
+  backgroundColor: "#1e1e2d",
+}}
     >
       <div className="text-center py-4 border-bottom">
         <h3 className="fw-bold">
