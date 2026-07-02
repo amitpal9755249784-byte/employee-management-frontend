@@ -20,9 +20,23 @@ function Sidebar() {
 
   if (location.pathname === "/login") return null;
 
+  const menuStyle = (path) => ({
+    backgroundColor:
+      location.pathname === path ? "#0d6efd" : "transparent",
+    color: "#fff",
+    borderRadius: "10px",
+    padding: "12px 15px",
+    marginBottom: "10px",
+    textDecoration: "none",
+    display: "flex",
+    alignItems: "center",
+    transition: "0.3s",
+    fontWeight: "500",
+  });
+
   return (
     <div
-      className="text-white shadow d-flex flex-column"
+      className="d-flex flex-column shadow"
       style={{
         width: "250px",
         height: "100vh",
@@ -33,13 +47,18 @@ function Sidebar() {
       }}
     >
       {/* Logo */}
-      <div className="text-center py-4 border-bottom border-secondary">
+      <div
+        className="text-center text-white py-4"
+        style={{
+          borderBottom: "1px solid #495057",
+        }}
+      >
         <h3 className="fw-bold mb-1">
           <FaUsers className="me-2" />
           EMS
         </h3>
 
-        <small className="text-light">
+        <small className="text-secondary">
           Employee Management
         </small>
       </div>
@@ -49,65 +68,57 @@ function Sidebar() {
 
         <Link
           to="/dashboard"
-          className={`nav-link rounded p-3 mb-2 ${
-            location.pathname === "/dashboard"
-              ? "bg-primary text-white"
-              : "text-white"
-          }`}
+          style={menuStyle("/dashboard")}
         >
-          <FaTachometerAlt className="me-2" />
+          <FaTachometerAlt className="me-3" />
           Dashboard
         </Link>
 
         <Link
           to="/"
-          className={`nav-link rounded p-3 mb-2 ${
-            location.pathname === "/"
-              ? "bg-primary text-white"
-              : "text-white"
-          }`}
+          style={menuStyle("/")}
         >
-          <FaUsers className="me-2" />
+          <FaUsers className="me-3" />
           Employees
         </Link>
 
         <Link
           to="/add"
-          className={`nav-link rounded p-3 mb-2 ${
-            location.pathname === "/add"
-              ? "bg-primary text-white"
-              : "text-white"
-          }`}
+          style={menuStyle("/add")}
         >
-          <FaUserPlus className="me-2" />
+          <FaUserPlus className="me-3" />
           Add Employee
         </Link>
 
       </div>
 
-      {/* User & Logout */}
-      <div className="p-3 border-top border-secondary">
-
-        <div className="mb-3">
-
+      {/* User */}
+      <div
+        className="p-3 text-white"
+        style={{
+          borderTop: "1px solid #495057",
+        }}
+      >
+        <div
+          className="mb-3 p-2 rounded"
+          style={{
+            backgroundColor: "#343a40",
+          }}
+        >
           <strong>{user?.name}</strong>
-
           <br />
-
-          <small className="text-light">
+          <small className="text-secondary">
             {user?.email}
           </small>
-
         </div>
 
         <button
-          onClick={logout}
           className="btn btn-danger w-100"
+          onClick={logout}
         >
           <FaSignOutAlt className="me-2" />
           Logout
         </button>
-
       </div>
     </div>
   );
