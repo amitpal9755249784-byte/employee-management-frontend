@@ -10,10 +10,12 @@ function Layout() {
       <Sidebar />
 
       <div
-        style={{
-          marginLeft: "250px",
-        }}
-      >
+  style={{
+    marginLeft: "250px",
+    minHeight: "100vh",
+    background: "#f4f6f9",
+  }}
+>
 
         <Navbar />
 

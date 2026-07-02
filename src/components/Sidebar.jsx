@@ -1,7 +1,13 @@
+import {
+  FaTachometerAlt,
+  FaUsers,
+  FaUserPlus,
+  FaSignOutAlt,
+} from "react-icons/fa";
+
 import { Link, useNavigate, useLocation } from "react-router-dom";
 
 function Sidebar() {
-
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -16,63 +22,90 @@ function Sidebar() {
 
   return (
     <div
-      className="bg-dark text-white p-3"
+      className="text-white shadow"
       style={{
         width: "250px",
         minHeight: "100vh",
         position: "fixed",
         left: 0,
         top: 0,
+        background: "linear-gradient(180deg,#0d6efd,#0a58ca)",
       }}
     >
-      <h3 className="text-center mb-4">
-        👨‍💼 EMS
-      </h3>
+      <div className="text-center py-4 border-bottom">
+        <h3 className="fw-bold">
+          <FaUsers className="me-2" />
+          EMS
+        </h3>
 
-      <ul className="nav flex-column">
+        <small>
+          Employee Management
+        </small>
+      </div>
 
-        <li className="nav-item mb-2">
-          <Link
-            to="/dashboard"
-            className="nav-link text-white"
-          >
-            📊 Dashboard
-          </Link>
-        </li>
+      <div className="p-3">
 
-        <li className="nav-item mb-2">
-          <Link
-            to="/"
-            className="nav-link text-white"
-          >
-            👨 Employees
-          </Link>
-        </li>
+        <Link
+          to="/dashboard"
+          className={`nav-link text-white rounded p-3 mb-2 ${
+            location.pathname === "/dashboard"
+              ? "bg-light text-dark"
+              : ""
+          }`}
+        >
+          <FaTachometerAlt className="me-2" />
+          Dashboard
+        </Link>
 
-        <li className="nav-item mb-2">
-          <Link
-            to="/add"
-            className="nav-link text-white"
-          >
-            ➕ Add Employee
-          </Link>
-        </li>
+        <Link
+          to="/"
+          className={`nav-link text-white rounded p-3 mb-2 ${
+            location.pathname === "/"
+              ? "bg-light text-dark"
+              : ""
+          }`}
+        >
+          <FaUsers className="me-2" />
+          Employees
+        </Link>
 
-      </ul>
+        <Link
+          to="/add"
+          className={`nav-link text-white rounded p-3 mb-2 ${
+            location.pathname === "/add"
+              ? "bg-light text-dark"
+              : ""
+          }`}
+        >
+          <FaUserPlus className="me-2" />
+          Add Employee
+        </Link>
 
-      <hr />
+      </div>
 
-      <p>
-        👋 {user?.name}
-      </p>
-
-      <button
-        className="btn btn-danger w-100"
-        onClick={logout}
+      <div
+        className="position-absolute bottom-0 start-0 w-100 p-3 border-top"
       >
-        Logout
-      </button>
 
+        <div className="mb-3">
+
+          <strong>{user?.name}</strong>
+
+          <br />
+
+          <small>{user?.email}</small>
+
+        </div>
+
+        <button
+          onClick={logout}
+          className="btn btn-danger w-100"
+        >
+          <FaSignOutAlt className="me-2" />
+          Logout
+        </button>
+
+      </div>
     </div>
   );
 }
