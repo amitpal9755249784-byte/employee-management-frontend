@@ -15,7 +15,6 @@ function Layout() {
         style={{
           marginLeft: "250px",
           minHeight: "100vh",
-          backgroundColor: "#f8f9fa",
         }}
       >
         <Navbar />
