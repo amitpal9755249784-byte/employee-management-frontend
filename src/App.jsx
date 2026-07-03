@@ -9,15 +9,19 @@ import EditEmployee from "./pages/EditEmployee";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Profile from "./pages/Profile";
+import ChangePassword from "./pages/ChangePassword";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
 
+        {/* Public Routes */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
+        {/* Protected Routes */}
         <Route
           element={
             <ProtectedRoute>
@@ -29,6 +33,11 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/add" element={<AddEmployee />} />
           <Route path="/edit/:id" element={<EditEmployee />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route
+            path="/change-password"
+            element={<ChangePassword />}
+          />
         </Route>
 
       </Routes>
