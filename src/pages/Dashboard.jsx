@@ -1,6 +1,27 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  ArcElement,
+  Tooltip,
+  Legend,
+} from "chart.js";
+
+import { Bar, Pie } from "react-chartjs-2";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  ArcElement,
+  Tooltip,
+  Legend
+);
+
 function Dashboard() {
   const [employees, setEmployees] = useState([]);
 
@@ -16,101 +37,122 @@ function Dashboard() {
     setEmployees(response.data);
   };
 
-  const totalEmployees = employees.length;
+  const departments = {};
 
-  const totalDepartments = [
-    ...new Set(employees.map((emp) => emp.department)),
-  ].length;
+  employees.forEach((emp) => {
+    departments[emp.department] =
+      (departments[emp.department] || 0) + 1;
+  });
+
+  const barData = {
+    labels: Object.keys(departments),
+    datasets: [
+      {
+        label: "Employees",
+        data: Object.values(departments),
+      },
+    ],
+  };
+
+  const pieData = {
+    labels: Object.keys(departments),
+    datasets: [
+      {
+        data: Object.values(departments),
+      },
+    ],
+  };
 
   return (
-    <div className="container mt-4">
+    <div className="container-fluid">
 
       <h2 className="mb-4 fw-bold">
-        📊 Dashboard
+        Dashboard
       </h2>
 
       <div className="row">
 
         <div className="col-md-4 mb-4">
-          <div className="card text-white bg-primary shadow-lg border-0">
-            <div className="card-body text-center">
+
+          <div className="card text-bg-primary shadow">
+
+            <div className="card-body">
+
               <h5>Total Employees</h5>
 
-              <h1>{totalEmployees}</h1>
+              <h1>{employees.length}</h1>
 
-              <p className="mb-0">
-                👨 Employees
-              </p>
             </div>
+
           </div>
+
         </div>
 
         <div className="col-md-4 mb-4">
-          <div className="card text-white bg-success shadow-lg border-0">
-            <div className="card-body text-center">
-              <h5>Departments</h5>
 
-              <h1>{totalDepartments}</h1>
+          <div className="card text-bg-success shadow">
 
-              <p className="mb-0">
-                🏢 Departments
-              </p>
+            <div className="card-body">
+
+              <h5>Total Departments</h5>
+
+              <h1>{Object.keys(departments).length}</h1>
+
             </div>
+
           </div>
+
         </div>
 
         <div className="col-md-4 mb-4">
-          <div className="card text-white bg-warning shadow-lg border-0">
-            <div className="card-body text-center">
-              <h5>System Status</h5>
 
-              <h1>🟢</h1>
+          <div className="card text-bg-warning shadow">
 
-              <p className="mb-0">
-                Online
-              </p>
+            <div className="card-body">
+
+              <h5>Today's Date</h5>
+
+              <h5>{new Date().toLocaleDateString()}</h5>
+
             </div>
+
           </div>
+
         </div>
 
       </div>
 
-      <div className="card shadow border-0">
-        <div className="card-header bg-dark text-white">
-          <h4 className="mb-0">
-            Recent Employees
-          </h4>
+      <div className="row">
+
+        <div className="col-lg-6 mb-4">
+
+          <div className="card shadow">
+
+            <div className="card-header">
+              Department Wise Employees
+            </div>
+
+            <div className="card-body">
+              <Bar data={barData} />
+            </div>
+
+          </div>
+
         </div>
 
-        <div className="card-body">
+        <div className="col-lg-6 mb-4">
 
-          <table className="table table-hover">
+          <div className="card shadow">
 
-            <thead>
+            <div className="card-header">
+              Employee Distribution
+            </div>
 
-              <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Department</th>
-              </tr>
+            <div className="card-body">
+              <Pie data={pieData} />
+            </div>
 
-            </thead>
-
-            <tbody>
-
-              {employees.slice(0, 5).map((emp) => (
-                <tr key={emp.id}>
-                  <td>{emp.id}</td>
-                  <td>{emp.name}</td>
-                  <td>{emp.email}</td>
-                  <td>{emp.department}</td>
-                </tr>
-              ))}
-
-            </tbody>
-
-          </table>
+          </div>
 
         </div>
 
