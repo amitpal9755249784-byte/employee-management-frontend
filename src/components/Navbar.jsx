@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
 
-function Navbar({ sidebarOpen, setSidebarOpen }) {
+function Navbar({ sidebarOpen, setSidebarOpen, isMobile }) {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -34,16 +34,17 @@ function Navbar({ sidebarOpen, setSidebarOpen }) {
 
   return (
     <nav
-      className="navbar navbar-light bg-white shadow-sm px-4"
+      className="navbar navbar-light bg-white shadow-sm px-3"
       style={{
         height: "70px",
         position: "sticky",
         top: 0,
-        zIndex: 1000,
+        zIndex: 1030,
       }}
     >
       <div className="container-fluid">
 
+        {/* Left */}
         <div className="d-flex align-items-center">
 
           <button
@@ -53,15 +54,21 @@ function Navbar({ sidebarOpen, setSidebarOpen }) {
             <FaBars />
           </button>
 
-          <h4 className="fw-bold text-primary mb-0">
+          <h5 className="fw-bold text-primary mb-0 d-none d-md-block">
             👨‍💼 Employee Management System
-          </h4>
+          </h5>
+
+          <h6 className="fw-bold text-primary mb-0 d-md-none">
+            EMS
+          </h6>
 
         </div>
 
+        {/* Right */}
         <div className="d-flex align-items-center">
 
-          <div className="text-end me-3">
+          {/* Hide on Mobile */}
+          <div className="text-end me-3 d-none d-md-block">
 
             <div className="fw-bold">
               👋 Welcome, {user?.name}
@@ -73,11 +80,14 @@ function Navbar({ sidebarOpen, setSidebarOpen }) {
 
           </div>
 
+          {/* Dropdown */}
           <div className="dropdown">
 
             <button
+              type="button"
               className="btn btn-light dropdown-toggle d-flex align-items-center"
               data-bs-toggle="dropdown"
+              aria-expanded="false"
             >
 
               <div
@@ -88,10 +98,10 @@ function Navbar({ sidebarOpen, setSidebarOpen }) {
                   fontWeight: "bold",
                 }}
               >
-                {user?.name?.charAt(0).toUpperCase()}
+                {user?.name?.charAt(0)?.toUpperCase()}
               </div>
 
-              <span className="fw-semibold">
+              <span className="d-none d-md-inline">
                 {user?.name}
               </span>
 
@@ -100,25 +110,23 @@ function Navbar({ sidebarOpen, setSidebarOpen }) {
             <ul className="dropdown-menu dropdown-menu-end shadow">
 
               <li>
-
                 <button
                   className="dropdown-item"
                   onClick={() => navigate("/profile")}
                 >
                   👤 Profile
                 </button>
-
               </li>
 
               <li>
-
                 <button
                   className="dropdown-item"
-                  onClick={() => navigate("/change-password")}
+                  onClick={() =>
+                    navigate("/change-password")
+                  }
                 >
                   🔒 Change Password
                 </button>
-
               </li>
 
               <li>
@@ -126,14 +134,12 @@ function Navbar({ sidebarOpen, setSidebarOpen }) {
               </li>
 
               <li>
-
                 <button
                   className="dropdown-item text-danger"
                   onClick={handleLogout}
                 >
                   🚪 Logout
                 </button>
-
               </li>
 
             </ul>

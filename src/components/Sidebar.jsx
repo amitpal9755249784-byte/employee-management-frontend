@@ -6,16 +6,21 @@ import {
 } from "react-icons/fa";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 
-function Sidebar({ sidebarOpen }) {
+function Sidebar({ sidebarOpen, setSidebarOpen, isMobile }) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const user = JSON.parse(localStorage.getItem("user"));
+const user = JSON.parse(localStorage.getItem("user") || "{}");
 
   const logout = () => {
-    localStorage.removeItem("user");
-    navigate("/login");
-  };
+  localStorage.removeItem("user");
+
+  if (isMobile) {
+    setSidebarOpen(false);
+  }
+
+  navigate("/login");
+};
 
   if (location.pathname === "/login") return null;
 
@@ -37,18 +42,40 @@ function Sidebar({ sidebarOpen }) {
 
   return (
     <div
-      className="d-flex flex-column shadow"
-      style={{
-        width: sidebarOpen ? "250px" : "80px",
-        height: "100vh",
-        position: "fixed",
-        left: 0,
-        top: 0,
-        backgroundColor: "#212529",
-        transition: "0.3s",
-        zIndex: 1050,
-      }}
-    >
+  className="d-flex flex-column shadow"
+  style={{
+    width: sidebarOpen ? "250px" : "80px",
+    height: "100vh",
+    position: "fixed",
+    top: 0,
+
+    left: isMobile
+      ? sidebarOpen
+        ? "0"
+        : "-250px"
+      : "0",
+
+    backgroundColor: "#212529",
+
+    transition: "all .3s ease",
+
+    zIndex: 1050,
+  }}
+>
+  {isMobile && sidebarOpen && (
+  <div
+    onClick={() => setSidebarOpen(false)}
+    style={{
+      position: "fixed",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      background: "rgba(0,0,0,.5)",
+      zIndex: -1,
+    }}
+  />
+)}
       {/* Logo */}
       <div
         className="text-center text-white py-4"
@@ -74,9 +101,10 @@ function Sidebar({ sidebarOpen }) {
       <div className="p-3 flex-grow-1">
 
         <Link
-          to="/dashboard"
-          style={menuStyle("/dashboard")}
-        >
+  to="/dashboard"
+  style={menuStyle("/dashboard")}
+  onClick={() => isMobile && setSidebarOpen(false)}
+>
           <FaTachometerAlt size={20} />
           {sidebarOpen && (
             <span className="ms-3">
@@ -86,9 +114,10 @@ function Sidebar({ sidebarOpen }) {
         </Link>
 
         <Link
-          to="/"
-          style={menuStyle("/")}
-        >
+  to="/"
+  style={menuStyle("/")}
+  onClick={() => isMobile && setSidebarOpen(false)}
+>
           <FaUsers size={20} />
           {sidebarOpen && (
             <span className="ms-3">
@@ -97,10 +126,11 @@ function Sidebar({ sidebarOpen }) {
           )}
         </Link>
 
-        <Link
-          to="/add"
-          style={menuStyle("/add")}
-        >
+       <Link
+  to="/add"
+  style={menuStyle("/add")}
+  onClick={() => isMobile && setSidebarOpen(false)}
+>
           <FaUserPlus size={20} />
           {sidebarOpen && (
             <span className="ms-3">
