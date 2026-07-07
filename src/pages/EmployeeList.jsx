@@ -61,6 +61,13 @@ function EmployeeList() {
   )
   .sort((a, b) => {
     switch (sortBy) {
+
+      case "idAsc":
+        return a.id - b.id;
+
+      case "idDesc":
+        return b.id - a.id;
+
       case "nameAsc":
         return a.name.localeCompare(b.name);
 
@@ -145,6 +152,14 @@ function EmployeeList() {
     >
       <option value="">Sort By</option>
 
+      <option value="idAsc">
+          ID (Low to High)
+      </option>
+
+      <option value="idDesc">
+          ID (High to Low)
+      </option>
+
       <option value="nameAsc">
         Name (A-Z)
       </option>
@@ -191,15 +206,11 @@ function EmployeeList() {
                 {currentEmployees.length > 0 ? (
 
                   currentEmployees.map(
-                    (employee, index) => (
+                    (employee) => (
 
                       <tr key={employee.id}>
 
-                        <td>
-                          {indexOfFirstEmployee +
-                            index +
-                            1}
-                        </td>
+                        <td>{employee.id}</td>
 
                         <td className="fw-semibold">
                           {employee.name}

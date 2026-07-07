@@ -62,20 +62,7 @@ const user = JSON.parse(localStorage.getItem("user") || "{}");
     zIndex: 1050,
   }}
 >
-  {isMobile && sidebarOpen && (
-  <div
-    onClick={() => setSidebarOpen(false)}
-    style={{
-      position: "fixed",
-      top: 0,
-      left: 0,
-      width: "100%",
-      height: "100%",
-      background: "rgba(0,0,0,.5)",
-      zIndex: -1,
-    }}
-  />
-)}
+
       {/* Logo */}
       <div
         className="text-center text-white py-4"
