@@ -1,7 +1,53 @@
-import React from "react";
+import { useState } from "react";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 function Profile() {
   const user = JSON.parse(localStorage.getItem("user") || "{}");
+
+  const [isEdit, setIsEdit] = useState(false);
+
+  const [formData, setFormData] = useState({
+    name: user?.name || "",
+    email: user?.email || "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleUpdate = async () => {
+    try {
+      const response = await axios.put(
+        `https://employee-management-backend-production-dc04.up.railway.app/api/profile/${user.id}`,
+        formData
+      );
+
+      localStorage.setItem(
+        "user",
+        JSON.stringify(response.data.user)
+      );
+
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "Profile Updated Successfully",
+      });
+
+      setIsEdit(false);
+
+      window.location.reload();
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Unable to update profile",
+      });
+    }
+  };
 
   return (
     <div className="container mt-4">
@@ -23,10 +69,10 @@ function Profile() {
                   fontWeight: "bold",
                 }}
               >
-                {user?.name?.charAt(0).toUpperCase()}
+                {formData.name.charAt(0).toUpperCase()}
               </div>
 
-              <h3>{user?.name}</h3>
+              <h3>{formData.name}</h3>
 
               <p className="mb-0">
                 Employee
@@ -41,13 +87,53 @@ function Profile() {
                 <tbody>
 
                   <tr>
-                    <th width="35%">Name</th>
-                    <td>{user?.name}</td>
+
+                    <th width="35%">
+                      Name
+                    </th>
+
+                    <td>
+
+                      {isEdit ? (
+
+                        <input
+                          type="text"
+                          className="form-control"
+                          name="name"
+                          value={formData.name}
+                          onChange={handleChange}
+                        />
+
+                      ) : (
+                        formData.name
+                      )}
+
+                    </td>
+
                   </tr>
 
                   <tr>
+
                     <th>Email</th>
-                    <td>{user?.email}</td>
+
+                    <td>
+
+                      {isEdit ? (
+
+                        <input
+                          type="email"
+                          className="form-control"
+                          name="email"
+                          value={formData.email}
+                          onChange={handleChange}
+                        />
+
+                      ) : (
+                        formData.email
+                      )}
+
+                    </td>
+
                   </tr>
 
                   <tr>
@@ -57,6 +143,7 @@ function Profile() {
 
                   <tr>
                     <th>Status</th>
+
                     <td>
                       <span className="badge bg-success">
                         Active
@@ -67,6 +154,50 @@ function Profile() {
                 </tbody>
 
               </table>
+
+              <div className="text-center">
+
+                {!isEdit ? (
+
+                  <button
+                    className="btn btn-primary"
+                    onClick={() =>
+                      setIsEdit(true)
+                    }
+                  >
+                    ✏ Edit Profile
+                  </button>
+
+                ) : (
+
+                  <>
+
+                    <button
+                      className="btn btn-success me-2"
+                      onClick={handleUpdate}
+                    >
+                      💾 Save Changes
+                    </button>
+
+                    <button
+                      className="btn btn-secondary"
+                      onClick={() => {
+                        setIsEdit(false);
+
+                        setFormData({
+                          name: user.name,
+                          email: user.email,
+                        });
+                      }}
+                    >
+                      Cancel
+                    </button>
+
+                  </>
+
+                )}
+
+              </div>
 
             </div>
 
