@@ -189,7 +189,8 @@ function EmployeeList() {
               <thead className="table-dark">
 
                 <tr>
-                  <th>#</th>
+                  <th>S.No.</th>
+                  <th>Employee ID</th>
                   <th>Name</th>
                   <th>Email</th>
                   <th>Phone</th>
@@ -206,9 +207,13 @@ function EmployeeList() {
                 {currentEmployees.length > 0 ? (
 
                   currentEmployees.map(
-                    (employee) => (
+                    (employee, index) => (
 
                       <tr key={employee.id}>
+
+                        <td>
+                          {indexOfFirstEmployee + index + 1}
+                        </td>
 
                         <td>{employee.id}</td>
 
