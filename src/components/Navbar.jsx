@@ -8,12 +8,24 @@ function Navbar({ sidebarOpen, setSidebarOpen, isMobile }) {
 
   const user = JSON.parse(localStorage.getItem("user") || "{}");
 
+  const [theme, setTheme] = useState(
+    localStorage.getItem("theme") ||
+      (window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light")
+  );
+
   const [dateTime, setDateTime] = useState("");
 
   const handleLogout = () => {
     localStorage.removeItem("user");
     navigate("/login");
   };
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -67,8 +79,17 @@ function Navbar({ sidebarOpen, setSidebarOpen, isMobile }) {
         {/* Right */}
         <div className="d-flex align-items-center">
 
-          {/* Hide on Mobile */}
-          <div className="text-end me-3 d-none d-md-block">
+            <button
+              type="button"
+              className="btn btn-outline-secondary me-3"
+              onClick={() =>
+                setTheme((current) =>
+                  current === "dark" ? "light" : "dark"
+                )
+              }
+            >
+              {theme === "dark" ? "Light Mode" : "Dark Mode"}
+            </button>
 
             <div className="fw-bold">
               👋 Welcome, {user?.name}
