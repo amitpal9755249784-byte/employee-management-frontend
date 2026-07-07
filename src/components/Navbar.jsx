@@ -2,18 +2,11 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
 
-function Navbar({ sidebarOpen, setSidebarOpen, isMobile }) {
+function Navbar({ sidebarOpen, setSidebarOpen }) {
   const location = useLocation();
   const navigate = useNavigate();
 
   const user = JSON.parse(localStorage.getItem("user") || "{}");
-
-  const [theme, setTheme] = useState(
-    localStorage.getItem("theme") ||
-      (window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light")
-  );
 
   const [dateTime, setDateTime] = useState("");
 
@@ -21,11 +14,6 @@ function Navbar({ sidebarOpen, setSidebarOpen, isMobile }) {
     localStorage.removeItem("user");
     navigate("/login");
   };
-
-  useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme);
-  }, [theme]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -78,21 +66,9 @@ function Navbar({ sidebarOpen, setSidebarOpen, isMobile }) {
 
         
         {/* Right */}
-<div className="d-flex align-items-center">
+        <div className="d-flex align-items-center">
 
-  <button
-    type="button"
-    className="btn btn-outline-secondary me-3"
-    onClick={() =>
-      setTheme((current) =>
-        current === "dark" ? "light" : "dark"
-      )
-    }
-  >
-    {theme === "dark" ? "☀️" : "🌙"}
-  </button>
-
-  <div className="text-end me-3 d-none d-md-block">
+          <div className="text-end me-3 d-none d-md-block">
 
     <div className="fw-bold">
       👋 Welcome, {user?.name}
