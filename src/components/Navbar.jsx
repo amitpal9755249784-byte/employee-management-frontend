@@ -76,98 +76,98 @@ function Navbar({ sidebarOpen, setSidebarOpen, isMobile }) {
 
         </div>
 
+        
         {/* Right */}
-        <div className="d-flex align-items-center">
+<div className="d-flex align-items-center">
 
-            <button
-              type="button"
-              className="btn btn-outline-secondary me-3"
-              onClick={() =>
-                setTheme((current) =>
-                  current === "dark" ? "light" : "dark"
-                )
-              }
-            >
-              {theme === "dark" ? "Light Mode" : "Dark Mode"}
-            </button>
+  <button
+    type="button"
+    className="btn btn-outline-secondary me-3"
+    onClick={() =>
+      setTheme((current) =>
+        current === "dark" ? "light" : "dark"
+      )
+    }
+  >
+    {theme === "dark" ? "☀️" : "🌙"}
+  </button>
 
-            <div className="fw-bold">
-              👋 Welcome, {user?.name}
-            </div>
+  <div className="text-end me-3 d-none d-md-block">
 
-            <small className="text-muted">
-              {dateTime}
-            </small>
+    <div className="fw-bold">
+      👋 Welcome, {user?.name}
+    </div>
 
-          </div>
+    <small className="text-muted">
+      {dateTime}
+    </small>
 
-          {/* Dropdown */}
-          <div className="dropdown">
+  </div>
 
-            <button
-              type="button"
-              className="btn btn-light dropdown-toggle d-flex align-items-center"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
+  <div className="dropdown">
 
-              <div
-                className="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center me-2"
-                style={{
-                  width: "40px",
-                  height: "40px",
-                  fontWeight: "bold",
-                }}
-              >
-                {user?.name?.charAt(0)?.toUpperCase()}
-              </div>
+    <button
+      type="button"
+      className="btn btn-light dropdown-toggle d-flex align-items-center"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
+    >
 
-              <span className="d-none d-md-inline">
-                {user?.name}
-              </span>
+      <div
+        className="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center me-2"
+        style={{
+          width: "40px",
+          height: "40px",
+          fontWeight: "bold",
+        }}
+      >
+        {user?.name?.charAt(0)?.toUpperCase()}
+      </div>
 
-            </button>
+      <span className="d-none d-md-inline">
+        {user?.name}
+      </span>
 
-            <ul className="dropdown-menu dropdown-menu-end shadow">
+    </button>
 
-              <li>
-                <button
-                  className="dropdown-item"
-                  onClick={() => navigate("/profile")}
-                >
-                  👤 Profile
-                </button>
-              </li>
+    <ul className="dropdown-menu dropdown-menu-end shadow">
 
-              <li>
-                <button
-                  className="dropdown-item"
-                  onClick={() =>
-                    navigate("/change-password")
-                  }
-                >
-                  🔒 Change Password
-                </button>
-              </li>
+      <li>
+        <button
+          className="dropdown-item"
+          onClick={() => navigate("/profile")}
+        >
+          👤 Profile
+        </button>
+      </li>
 
-              <li>
-                <hr className="dropdown-divider" />
-              </li>
+      <li>
+        <button
+          className="dropdown-item"
+          onClick={() => navigate("/change-password")}
+        >
+          🔒 Change Password
+        </button>
+      </li>
 
-              <li>
-                <button
-                  className="dropdown-item text-danger"
-                  onClick={handleLogout}
-                >
-                  🚪 Logout
-                </button>
-              </li>
+      <li>
+        <hr className="dropdown-divider" />
+      </li>
 
-            </ul>
+      <li>
+        <button
+          className="dropdown-item text-danger"
+          onClick={handleLogout}
+        >
+          🚪 Logout
+        </button>
+      </li>
 
-          </div>
+    </ul>
 
-        </div>
+  </div>
+
+</div>
 
       </div>
     </nav>
