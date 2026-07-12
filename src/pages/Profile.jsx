@@ -31,20 +31,22 @@ function Profile() {
         JSON.stringify(response.data.user)
       );
 
-      Swal.fire({
+      await Swal.fire({
         icon: "success",
         title: "Success",
         text: "Profile Updated Successfully",
+        confirmButtonText: "OK",
       });
 
       setIsEdit(false);
 
       window.location.reload();
     } catch (error) {
-      Swal.fire({
+      await Swal.fire({
         icon: "error",
         title: "Error",
         text: "Unable to update profile",
+        confirmButtonText: "OK",
       });
     }
   };
