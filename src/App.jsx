@@ -4,6 +4,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Layout from "./Layout";
 
 import EmployeeList from "./pages/EmployeeList";
+import ViewEmployee from "./pages/ViewEmployee";
 import AddEmployee from "./pages/AddEmployee";
 import EditEmployee from "./pages/EditEmployee";
 import Dashboard from "./pages/Dashboard";
@@ -31,6 +32,7 @@ function App() {
         >
           <Route path="/" element={<EmployeeList />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/view/:id" element={<ViewEmployee />} />
           <Route path="/add" element={<AddEmployee />} />
           <Route path="/edit/:id" element={<EditEmployee />} />
           <Route path="/profile" element={<Profile />} />

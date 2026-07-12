@@ -236,6 +236,13 @@ function EmployeeList() {
                         <td>
 
                           <Link
+                            to={`/view/${employee.id}`}
+                            className="btn btn-info btn-sm me-2"
+                          >
+                            👁 View
+                          </Link>
+
+                          <Link
                             to={`/edit/${employee.id}`}
                             className="btn btn-warning btn-sm me-2"
                           >
@@ -243,7 +250,7 @@ function EmployeeList() {
                           </Link>
 
                           <button
-                            className="btn btn-danger btn-sm"
+                            className="btn btn-danger btn-sm "
                             onClick={() =>
                               deleteEmployee(employee.id)
                             }
